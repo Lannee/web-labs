@@ -1,0 +1,11 @@
+:root {
+    --acid-blue: #2A4BF8;
+    --shade-base: #2570D9;
+    --base: #36B4F0;
+    --lights: #25CFD9;
+    --green: #2AF8CA;
+}
+
+body {
+    background-color: var(--shade-base);
+}
