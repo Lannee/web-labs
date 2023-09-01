@@ -7,6 +7,57 @@
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    
+    <table class="header" id="bordered">
+        <tr>
+            <td>Булко Егор Олегович</td>
+            <td>P3206</td>
+            <td>Вариант: 1614</td>
+        </tr>
+    </table>
+
+    <table class="content" id="bordered">
+        <tr>
+            <td>
+                <img src="images/areas.png">
+            </td>
+            <td class="inputs">
+                <form method="get" action="php/formHandler.php">
+                    <div class="input">
+                        <div class="input_text">Enter X:</div>
+                        
+                        
+                        <button class="input_button" type="button" name="x_coordinate">-5</button>
+                        <button class="input_button" type="button" name="x_coordinate">-4</button>
+                        <button class="input_button" type="button" name="x_coordinate">-3</button>
+                        <button class="input_button" type="button" name="x_coordinate">-2</button>
+                        <button class="input_button" type="button" name="x_coordinate">-1</button>
+                        <button class="input_button" type="button" name="x_coordinate">0</button>
+                        <button class="input_button" type="button" name="x_coordinate">1</button>
+                        <button class="input_button" type="button" name="x_coordinate">2</button>
+                        <button class="input_button" type="button" name="x_coordinate">3</button>
+                    </div>
+                    <div class="input">
+                        <div class="input_text">Enter Y:</div>
+                        <input name="y_coordinate" type="text" value="" placeholder="-5 ... 5">
+                    </div>
+                    <div class="input">
+                        <div class="input_text">Enter R:</div>
+                        <select name="radius">
+                            <option>1</option>
+                            <option>1.5</option>
+                            <option>2</option>
+                            <option>2.5</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                    <input class="submit_button" type="submit" placeholder="Submit">
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <table class="results" id="bordered">
+
+    </table>
 </body>
 </html>

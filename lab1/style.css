@@ -1,11 +1,45 @@
 :root {
     --acid-blue: #2A4BF8;
-    --shade-base: #2570D9;
-    --base: #36B4F0;
+    --shade-base: hsl(215, 71%, 50%);
+    --base: #dde1e7;
     --lights: #25CFD9;
     --green: #2AF8CA;
 }
 
-body {
-    background-color: var(--shade-base);
+* {
+    margin: 0px;
+    padding: 0px;
 }
+
+body {
+    background-color: var(--base);
+}
+
+table {
+    border-radius: 10px;
+
+    padding: 10px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 70%;
+}
+
+#bordered {
+    background-color: var(--base);
+
+    box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 
+                5px 5px 9px rgba(94, 104, 121, 0.3);
+}
+
+/* table::before {
+    content:"";
+  position:absolute;
+  top:100%;
+  right:0;
+  left:0;
+  height:50px;
+  background:
+    radial-gradient(farthest-side at bottom right,transparent 98%,#9baaad 100%) 
+    0/50px no-repeat;
+} */
