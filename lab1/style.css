@@ -1,12 +1,18 @@
 :root {
     --acid-blue: #2A4BF8;
-    --shade-base: hsl(215, 71%, 50%);
+    --shade-base: #868E9C;
     --base: #dde1e7;
     --lights: #25CFD9;
     --green: #2AF8CA;
 }
 
 * {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: var(--shade-base);
+    /* font: 20px, var(--shade-base); */
+
     margin: 0px;
     padding: 0px;
 }
@@ -15,7 +21,50 @@ body {
     background-color: var(--base);
 }
 
-table {
+.inputs {
+    padding: 10px;
+}
+
+.input {
+    /* display: flex; */
+    /* justify-content: space-around; */
+
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.input input[type="text"]{
+    padding: 5px;
+
+    border-radius: 10px;
+    border: none;
+    display:inline-block;
+}
+
+.submit_button {
+    border: none;
+    border-radius: 10px;
+
+    padding: 10px;
+}
+
+.input_lable {
+    /* position: relative;
+    left: 100px; */
+
+    border-radius: 20px;
+    padding: 10px;
+    width: 70px;
+}
+
+/* .input_button {
+    position: relative;
+    top: 100px;
+} */
+
+body > table {
+    border: 2px, dotted, black;
     border-radius: 10px;
 
     padding: 10px;
@@ -25,21 +74,74 @@ table {
     width: 70%;
 }
 
-#bordered {
+#convex {
     background-color: var(--base);
 
     box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 
                 5px 5px 9px rgba(94, 104, 121, 0.3);
 }
 
-/* table::before {
-    content:"";
-  position:absolute;
-  top:100%;
-  right:0;
-  left:0;
-  height:50px;
-  background:
-    radial-gradient(farthest-side at bottom right,transparent 98%,#9baaad 100%) 
-    0/50px no-repeat;
+#concave {
+    background-color: var(--base);
+
+    box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), 
+                inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+}
+
+/* #concave {
+    background-color: var(--base);
+
+    box-shadow: inset -5px -5px 9px rgba(94, 104, 121, 0.3), 
+                inset 5px 5px 9px rgba(255, 255, 255, 0.45);
 } */
+
+.content img {
+    margin: 10px;
+}
+
+button {
+    border: none;
+
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    margin: 100px, 10px;
+
+    border-radius: 50%;
+}
+
+.header {
+    color: var(--shade-base);
+}
+
+#text_convex {
+    text-shadow: -3px -3px 3px rgba(255, 255, 255, 0.45), 
+    3px 3px 3px rgba(94, 104, 121, 0.3);
+}
+
+select {
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    background-color: var(--base);
+
+    /* cursor: inherit; */
+}
+
+select:checked {
+    color: red;
+}
+
+select option {
+    border: none;
+    outline: none;
+    background-color: var(--base);
+}
+
+input:focus, select:focus {
+    outline: none;
+}
