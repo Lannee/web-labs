@@ -1,9 +1,8 @@
 :root {
-    --acid-blue: #2A4BF8;
     --shade-base: #868E9C;
     --base: #dde1e7;
-    --lights: #25CFD9;
-    --green: #2AF8CA;
+    --error: #FFA59E;
+    --error-text: #80524F;
 }
 
 * {
@@ -28,34 +27,34 @@ body {
 .input {
     /* display: flex; */
     /* justify-content: space-around; */
-
+    margin-bottom: 20px;
     padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    border-radius: 16px;
+    margin-bottom: 20px;
 }
 
 .input input[type="text"]{
-    padding: 5px;
-
+    padding: 10px 20px;
     border-radius: 10px;
     border: none;
     display:inline-block;
 }
 
-.submit_button {
+#submit_button {
     border: none;
     border-radius: 10px;
-
-    padding: 10px;
+    padding: 14px 20px;
+    transition: .2s;
+    transform: scale(1);
 }
 
-.input_lable {
-    /* position: relative;
-    left: 100px; */
+#input_lable {
+    min-width: 65px;
 
     border-radius: 20px;
-    padding: 10px;
-    width: 70px;
+    padding: 10px 20px;
+
+    text-align: center;
 }
 
 /* .input_button {
@@ -65,23 +64,22 @@ body {
 
 body > table {
     border: 2px, dotted, black;
-    border-radius: 10px;
-
-    padding: 10px;
+    border-radius: 22px;
+    padding: 14px;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
     width: 70%;
 }
 
-#convex {
+.convex {
     background-color: var(--base);
 
     box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 
                 5px 5px 9px rgba(94, 104, 121, 0.3);
 }
 
-#concave {
+.concave {
     background-color: var(--base);
 
     box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), 
@@ -101,20 +99,23 @@ body > table {
 
 button {
     border: none;
-
-    width: 40px;
-    height: 40px;
-    padding: 5px;
-    margin: 100px, 10px;
-
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
+    margin-right: 8px;
+    transition: .2s;
+    transform: scale(1);
+}
+
+button:active, #submit_button:active{
+    transform: scale(0.92);
 }
 
 .header {
     color: var(--shade-base);
 }
 
-#text_convex {
+.text_convex {
     text-shadow: -3px -3px 3px rgba(255, 255, 255, 0.45), 
     3px 3px 3px rgba(94, 104, 121, 0.3);
 }
@@ -132,10 +133,6 @@ select {
     /* cursor: inherit; */
 }
 
-select:checked {
-    color: red;
-}
-
 select option {
     border: none;
     outline: none;
@@ -144,4 +141,28 @@ select option {
 
 input:focus, select:focus {
     outline: none;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#tip {
+    margin-left: 70px;
+    padding: auto;
+
+    border-radius: 10px;
+    padding: 14px 20px;
+
+    min-width: 100px;
+
+    text-align: center;
+
+    background-color: var(--error);
+    color: var(--error-text);
+
+    box-shadow: -5px -5px 9px rgba(255, 242, 242, 1),
+    5px 5px 9px rgba(128, 82, 79, 0.6);
 }

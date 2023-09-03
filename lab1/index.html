@@ -8,64 +8,77 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital@0;1&family=Roboto&display=swap" rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital@0;1&family=Montserrat:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <table class="header" id="convex">
+    <table class="header convex">
         <tr>
-            <td class="header_name" id="text_convex">Булко Егор Олегович</td>
-            <td class="header_group" id="text_convex">P3206</td>
-            <td class="header_variant" id="text_convex">Вариант: 1614</td>
+            <td class="header_name text_convex">Булко Егор Олегович</td>
+            <td class="header_group text_convex">P3206</td>
+            <td class="header_variant text_convex">Вариант: 1614</td>
         </tr>
     </table>
 
-    <table class="content" id="convex">
+    <table class="content convex">
         <tr>
             <td class="areas">
                 <img src="images/areas.png">
             </td>
             <td class="inputs">
-                <form method="get" action="php/formHandler.php">
-                    <div class="input" id="convex">
-                        <div class="input_text">Choose X:</div>
-                        <label class="input_lable" id="concave">1</label>
+                <form id="input_form" method="get" action="php/formHandler.php">
+                    <div class="input convex">
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="input_text">Choose X:</div>
+                            <label class="concave" style="margin-left: 10px;" id="input_lable">1</label>
+                        </div>
                         
-                        <button id="convex" class="input_button" type="button" name="x_coordinate">-5</button>
-                        <button id="convex" class="input_button" type="button" name="x_coordinate">-4</button>
-                        <button id="convex" class="input_button" type="button" name="x_coordinate">-3</button>
-                        <button id="convex" class="input_button" type="button" name="x_coordinate">-2</button>
-                        <button id="convex" class="input_button" type="button" name="x_coordinate">-1</button>
-                        <button id="convex" class="input_button" type="button" name="x_coordinate">0</button>
-                        <button id="convex" class="input_button" type="button" name="x_coordinate">1</button>
-                        <button id="convex" class="input_button" type="button" name="x_coordinate">2</button>
-                        <button id="convex" class="input_button" type="button" name="x_coordinate">3</button>
+                        <button onclick="setInputLableValue(-5)" class="input_button convex" type="button" name="x_coordinate">-5</button>
+                        <button onclick="setInputLableValue(-4)" class="input_button convex" type="button" name="x_coordinate">-4</button>
+                        <button onclick="setInputLableValue(-3)" class="input_button convex" type="button" name="x_coordinate">-3</button>
+                        <button onclick="setInputLableValue(-2)" class="input_button convex" type="button" name="x_coordinate">-2</button>
+                        <button onclick="setInputLableValue(-1)" class="input_button convex" type="button" name="x_coordinate">-1</button>
+                        <button onclick="setInputLableValue(0)" class="input_button convex" type="button" name="x_coordinate">0</button>
+                        <button onclick="setInputLableValue(1)" class="input_button convex" type="button" name="x_coordinate">1</button>
+                        <button onclick="setInputLableValue(2)" class="input_button convex" type="button" name="x_coordinate">2</button>
+                        <button onclick="setInputLableValue(3)" class="input_button convex" type="button" name="x_coordinate">3</button>
                     </div>
-                    <div class="input" id="convex">
-                        <div class="input_text">Enter Y:</div>
-                        <input id="concave" name="y_coordinate" type="text" value="" placeholder="-5 ... 5">
+                    <div class="input convex">
+                        <div class="input_text" style="margin-bottom: 10px;">Enter Y:</div>
+                        <input id="y_coordinate" class="concave" name="y_coordinate" type="text" value="" placeholder="-5 ... 5">
                     </div>
-                    <div class="input" id="convex">
-                        <div class="input_text">Select R:</div>
-                        <select name="radius" id="convex">
-                            <option>1</option>
-                            <option>1.5</option>
-                            <option>2</option>
-                            <option>2.5</option>
-                            <option>3</option>
+                    <div class="input convex">
+                        <div class="input_text" style="margin-bottom: 10px;">Select R:</div>
+                        <select id="radius" name="radius" class="convex">
+                            <option value="1">1</option>
+                            <option value="1.5">1.5</option>
+                            <option value="2">2</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3">3</option>
                         </select>
                     </div>
-                    <input id="convex" class="submit_button" type="submit" placeholder="Submit">
+                    <div class="row">
+                        <input id="submit_button" class="convex" type="submit" placeholder="Submit">
+                        <div style="display: none;" id="tip"></div>
+                    </div>
                 </form>
             </td>
         </tr>
     </table>
 
-    <table class="results" id="convex">
+    <table class="results convex">
+        <thead>
+            <th >X</th>
+            <th >Y</th>
+            <th >R</th>
+            <th >Hit fact</th>
+            <th >Current time</th>
+            <th >Script running time, sec</th>
+        </thead>
+        <tbody>
 
+        </tbody>
     </table>
 </body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="js/script.js"></script>
 </html>
