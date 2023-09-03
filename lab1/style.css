@@ -162,3 +162,7 @@ input:focus, select:focus {
     padding: 14px 20px;
     margin: 10px 10px;
 }
+
+#results_body {
+    text-align: center;
+}

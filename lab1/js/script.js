@@ -21,6 +21,7 @@ function sendRequestTableData(method, url, data) {
 
 function clearSession() {
     sendRequestTableData("GET", "php/clearSession.php", "");
+    hideElement(clearButton);
 }
 
 
@@ -29,6 +30,7 @@ let x_lable = document.getElementById('input_lable');
 let y_input = document.getElementById('y_coordinate');
 let r_select = document.getElementById('radius');
 let tip = document.getElementById('tip');
+let clearButton = document.getElementById('clear');
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -47,12 +49,16 @@ function validateR(value) {
 }
 
 function setTip(text) {
-    tip.style.removeProperty('display');
+    showElement(tip);
     tip.innerText = text;
 }
 
-function hideTip() {
-    tip.style.display = "none";
+function showElement(element) {
+    element.style.removeProperty('display');
+}
+
+function hideElement(element) {
+    element.style.display = "none";
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -62,7 +68,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    hideTip();
+    hideElement(tip);
     
     console.log("X: " + x_lable.innerHTML + validateX(x_lable.innerHTML));
     console.log("Y: " + y_input.value + validateY(y_input.value));
@@ -78,5 +84,5 @@ form.addEventListener('submit', (event) => {
         r: r_select.value,
         timezone: new Date().getTimezoneOffset()
     });
-
+    showElement(clearButton);
 });
