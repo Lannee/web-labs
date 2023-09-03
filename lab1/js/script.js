@@ -2,6 +2,27 @@ function setInputLableValue(value) {
     document.getElementById("input_lable").innerHTML = value;
 }
 
+function sendRequestTableData(method, url, data) {
+    $.ajax({
+        type: method,
+        url: url,
+        data: data,
+        dataType: "html",
+        success: (response) => {
+            console.log(response);
+            document.getElementById('results_body').innerHTML = response;
+        },
+        error: (error) => {
+            console.log(error);
+            setTip("Server response error");
+        }
+    });
+}
+
+function clearSession() {
+    sendRequestTableData("GET", "php/clearSession.php", "");
+}
+
 
 let form = document.getElementById('input_form');
 let x_lable = document.getElementById('input_lable');
@@ -34,9 +55,13 @@ function hideTip() {
     tip.style.display = "none";
 }
 
+document.addEventListener("DOMContentLoaded", (event) => {
+    sendRequestTableData("GET", "php/loadSession.php", "");
+});
+
+
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-
     hideTip();
     
     console.log("X: " + x_lable.innerHTML + validateX(x_lable.innerHTML));
@@ -46,5 +71,12 @@ form.addEventListener('submit', (event) => {
     if(!validateX(x_lable.innerHTML)) {setTip("Invalid value for X"); return}
     if(!validateY(y_input.value)) {setTip("Invalid value for Y"); return}
     if(!validateR(r_select.value)) {setTip("Invalid value for R"); return}
+
+    sendRequestTableData("GET", "php/formHandler.php", {
+        x: x_lable.innerHTML,
+        y: y_input.value,
+        r: r_select.value,
+        timezone: new Date().getTimezoneOffset()
+    });
 
 });
