@@ -11,6 +11,8 @@ function sendRequestTableData(method, url, data) {
         success: (response) => {
             console.log(response);
             document.getElementById('results_body').innerHTML = response;
+            if(response) showElement(clearButton);
+            else hideElement(clearButton);
         },
         error: (error) => {
             console.log(error);
@@ -21,7 +23,6 @@ function sendRequestTableData(method, url, data) {
 
 function clearSession() {
     sendRequestTableData("GET", "php/clearSession.php", "");
-    hideElement(clearButton);
 }
 
 
@@ -84,5 +85,4 @@ form.addEventListener('submit', (event) => {
         r: r_select.value,
         timezone: new Date().getTimezoneOffset()
     });
-    showElement(clearButton);
 });
