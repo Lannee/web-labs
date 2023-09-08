@@ -166,3 +166,9 @@ input:focus, select:focus {
 #results_body {
     text-align: center;
 }
+
+@media screen and (max-width: 1350px) {
+    .input_button {
+        margin-top: 10px;
+    }
+}

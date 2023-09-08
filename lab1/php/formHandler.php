@@ -42,9 +42,9 @@ if(validateX($x) && validateY($y) && validateR($r) && isset($timezone)) {
     array_push(
         $_SESSION['data'], 
         array(
-            'x'=>$x, 
-            'y'=>$y, 
-            'r'=>$r, 
+            'x'=>floatval($x), 
+            'y'=>floatval($y), 
+            'r'=>floatval($r), 
             'hitFact'=>$hitFact, 
             'currTime'=>$currTime, 
             'executionTime'=>$executionTime
