@@ -57,6 +57,11 @@ body {
     text-align: center;
 }
 
+input::placeholder {
+    font-weight: bold;
+    opacity: 0.5;
+}
+
 body > table {
     border-radius: 22px;
     padding: 14px;

@@ -49,7 +49,11 @@ if(validateX($x) && validateY($y) && validateR($r) && isset($timezone)) {
             'currTime'=>$currTime, 
             'executionTime'=>$executionTime
         ));
+} else {
+    http_response_code(400);
+    echo '<h3 style="color: red;">Invalid value<h3/>';
 }
+
 
 foreach($_SESSION['data'] as $line) {
     echo "<tr>
