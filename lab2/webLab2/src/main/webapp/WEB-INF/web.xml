@@ -5,24 +5,29 @@
          version="4.0">
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>src/index.jsp</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <location>/src/error.jsp</location>
+    </error-page>
+
     <servlet>
-        <servlet-name>main</servlet-name>
-        <servlet-class>MainServlet</servlet-class>
+        <servlet-name>controller</servlet-name>
+        <servlet-class>servlets.ControllerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>main</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>controller</servlet-name>
+        <url-pattern>control</url-pattern>
     </servlet-mapping>
 
-    <!--    <error-page>-->
-    <!--        <exception-type>java.lang.ArrayIndexOutOfBoundsException</exception-type>-->
-    <!--        <location>/ServletErrorPage</location>-->
-    <!--    </error-page>-->
-    <!--    <error-page>-->
-    <!--        <error-code>404</error-code>-->
-    <!--        <location>/error404.html</location>-->
-    <!--    </error-page>-->
+    <servlet>
+        <servlet-name>areas</servlet-name>
+        <servlet-class>servlets.AreaCheckServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>areas</servlet-name>
+        <url-pattern>areaCheck</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

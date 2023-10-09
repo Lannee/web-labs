@@ -1,1 +1,8 @@
-MainServlet.class
+data\Shot.class
+data\UserData.class
+servlets\ControllerServlet.class
+model\managers\HitManager.class
+data\Point.class
+model\managers\PointManager.class
+model\managers\BoundManager.class
+servlets\AreaCheckServlet.class
