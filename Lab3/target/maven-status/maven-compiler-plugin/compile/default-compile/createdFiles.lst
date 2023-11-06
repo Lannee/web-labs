@@ -1,0 +1,14 @@
+data\Shot.class
+beans\InputFormBean.class
+db\DBInitializer.class
+beans\CanvasBean.class
+db\ConfigurationParser.class
+data\converters\TimeConverter.class
+data\HitManager.class
+data\UserDataBean.class
+beans\YBean.class
+beans\RBean.class
+data\Point.class
+db\DBConnection.class
+db\DBCollectionLoader.class
+beans\XBean.class
