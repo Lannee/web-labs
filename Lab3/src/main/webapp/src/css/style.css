@@ -88,6 +88,33 @@ body {
     padding: 14px 20px;
     transition: .2s;
     transform: scale(1);
+
+    margin-bottom: 10px;
+}
+
+#input_form\:y {
+    background-color: var(--base);
+}
+
+#r_select {
+    display: flex;
+    justify-content: space-around;
+}
+
+#x_radio tr {
+    display: flex;
+    justify-content: space-around;
+}
+
+#x_radio td {
+    display: grid;
+    margin: 0 10px;
+}
+
+#x_radio {
+    display: -webkit-inline-box;
+    justify-content: space-around;
+    vertical-align: middle;
 }
 
 #input_lable {
@@ -199,12 +226,13 @@ input:focus, select:focus {
 
 #tip {
     margin-left: 70px;
-    /* padding: auto; */
+     /*padding: auto; */
 
     border-radius: 10px;
-    padding: 14px 20px;
+    padding: 14px 0px;
 
-    min-width: 100px;
+    min-width: 280px;
+    /*max-width: 270px;*/
 
     text-align: center;
 
@@ -213,6 +241,16 @@ input:focus, select:focus {
 
     box-shadow: -5px -5px 9px rgba(255, 242, 242, 1),
     5px 5px 9px rgba(128, 82, 79, 0.6);
+
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+#y_error {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
 #clear {
@@ -318,14 +356,20 @@ input:focus, select:focus {
     }
 }
 
-#homePageDiv {
+#homePageDiv, #indexPageDiv {
     padding: 20px;
     margin: auto;
     width: fit-content;
     border-radius: 20px;
 }
 
-#homePageForm input {
+#indexPageDiv {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#homePageForm input, #indexPageForm input {
     border: none;
     background: none;
     color: inherit;

@@ -8,7 +8,6 @@ data\HitManager.class
 data\UserDataBean.class
 beans\YBean.class
 beans\RBean.class
-data\Point.class
 db\DBConnection.class
 db\DBCollectionLoader.class
 beans\XBean.class

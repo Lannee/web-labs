@@ -54,4 +54,5 @@ canvas.addEventListener("mousedown", event => {
     document.getElementById("canvas_form:canvas_y").value = y;
 
     canvas_shot();
+    setTimeout(() => location.reload(), 100)
 });

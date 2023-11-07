@@ -1,0 +1,27 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<!--    <h:outputStylesheet name="src/css/clock.css"/>-->
+<!--    <h:outputStylesheet name="src/css/timer.css"/>-->
+
+    <main id="main">
+        <div class="clock">
+            <div class="hour"> <!-- Обертка для стрелок -->
+                <div class="hr"></div> <!-- Сама стрелка -->
+            </div>
+            <div class="min">
+                <div class="mn"></div>
+            </div>
+            <div class="sec">
+                <div class="sc"></div>
+            </div>
+        </div>
+        <div class="timer"></div>
+    </main>
+
+    <script src="src/js/timerHandler.js"></script>
+    <script src="src/js/clockHandler.js"></script>
+
+</ui:composition>

@@ -23,6 +23,12 @@
     <h:body>
         <ui:include src="header.xhtml" />
 
+        <div class="row convex" id="indexPageDiv">
+            <h:form id="indexPageForm">
+                <h:commandButton id="indexPageLink" action="index" value="Go to the Index Page"/>
+            </h:form>
+        </div>
+
         <div class="content convex row">
             <div class="areas">
                 <canvas id="areas_canvas" height="300" width="300"></canvas>
@@ -36,7 +42,7 @@
             </h:form>
             <div id="form_div">
                 <h:form id="input_form">
-                    <div class="input convex">
+                    <div class="input convex" id="x_radio">
                         <div class="input_text" style="margin-bottom: 10px;">Select X:</div>
                         <h:selectOneRadio value = "#{xBean.x}">
                             <f:selectItem id="x_m3" itemValue = "-3" itemLabel = "-3" />
@@ -50,12 +56,14 @@
                             <f:selectItem id="x_5" itemValue = "5" itemLabel = "5" />
                         </h:selectOneRadio>
                     </div>
-                    <div class="input convex row">
-                        <div class="input_text" style="margin-bottom: 10px;">Enter Y:</div>
-                        <h:inputText id="y" class="concave" required="true" value="${yBean.y}" validator="${yBean.validateY}" a:placeholder="-3 ... 5">
-                            <f:validateLongRange minimum="-3" maximum="5" />
-                            <f:ajax execute="y-select" render="@form" />
-                        </h:inputText>
+                    <div class="input convex row" style="display: flex; justify-content: flex-start">
+                        <div class="input_text" style="margin-right: 10px;">Enter Y:</div>
+
+                        <p:inputText id="y" class="concave" value="#{yBean.y}" required="true"
+                                     converterMessage="Invalid Y value" size="5" a:placeholder="-3 ... 5">
+                            <f:validateDoubleRange minimum="-3" maximum="5"/>
+                            <p:clientValidator event="change"/>
+                        </p:inputText>
                     </div>
                     <div class="input convex" style="display: block">
                         <div class="row" style="margin-bottom: 20px;">
@@ -63,32 +71,50 @@
                             <label id="input_label" style="display: none">${rBean.r}</label>
                         </div>
                         <div class="buttons" id="r_select">
-                            <h:selectBooleanCheckbox id="r_b1" value="${rBean.b1}" validator="${rBean.validateR}" onclick="setInputLabelValue(1)">
-                                <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
-                            </h:selectBooleanCheckbox> 1
-                            <h:selectBooleanCheckbox id="r_b15" value="${rBean.b15}" validator="${rBean.validateR}" onclick="setInputLabelValue(1.5)">
-                                <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
-                            </h:selectBooleanCheckbox> 1.5
-                            <h:selectBooleanCheckbox id="r_b2" value="${rBean.b2}" validator="${rBean.validateR}" onclick="setInputLabelValue(2)">
-                                <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
-                            </h:selectBooleanCheckbox> 2
-                            <h:selectBooleanCheckbox id="r_b25" value="${rBean.b25}" validator="${rBean.validateR}" onclick="setInputLabelValue(2.5)">
-                                <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
-                            </h:selectBooleanCheckbox> 2.5
-                            <h:selectBooleanCheckbox id="r_b3" value="${rBean.b3}" validator="${rBean.validateR}" onclick="setInputLabelValue(3)">
-                                <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
-                                <f:validateRequired />
-                            </h:selectBooleanCheckbox> 3
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b1" class="r_check" value="${rBean.b1}" onclick="setInputLabelValue(1)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>1</div>
+                            </div>
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b15" class="r_check" value="${rBean.b15}" onclick="setInputLabelValue(1.5)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>1.5</div>
+                            </div>
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b2" class="r_check" value="${rBean.b2}" onclick="setInputLabelValue(2)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>2</div>
+                            </div>
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b25" class="r_check" value="${rBean.b25}" onclick="setInputLabelValue(2.5)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>2.5</div>
+                            </div>
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b3" value="${rBean.b3}" onclick="setInputLabelValue(3)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>3</div>
+                            </div>
                         </div>
                     </div>
-                    <div id="submit_row" class="row">
-                        <h:commandButton class="convex" id="submit_button" value="Submit">
-                            <f:ajax execute="@form" listener="#{userDataBean.newShot(xBean.x,
-                                        yBean.y, rBean.r)}" update="draw_script" render="result_table draw_script"/>
-                        </h:commandButton>
-                        <div style="display: none;" id="tip"></div>
+                    <div id="submit_row">
+                        <div style="width: fit-content" onclick="setTimeout(() => location.reload(), 200)">
+                            <h:commandButton class="convex" id="submit_button" value="Submit">
+                                <f:ajax execute="@form" listener="#{userDataBean.newShot(xBean.x,
+                                            yBean.y, rBean.r)}" render="result_table draw_script"/>
+                            </h:commandButton>
+                        </div>
+<!--                        <div style="display: none;" id="tip"></div>-->
                     </div>
+                    <p:message for="y" autoUpdate="true"/>
                 </h:form>
+                <div style="display: none;" id="tip"></div>
             </div>
         </div>
 
@@ -119,7 +145,7 @@
                     #{s.execTime}
                 </h:column>
             </h:dataTable>
-            <div>
+            <div onclick="setTimeout(() => location.reload(), 200)">
                 <h:commandButton id="clear" class="convex" value="Clear">
                     <f:ajax execute="@form" listener="#{userDataBean.clearShots()}" update="draw_script" render="result_table draw_script"/>
                 </h:commandButton>

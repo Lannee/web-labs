@@ -7,7 +7,7 @@ public class HitManager {
     }
 
     public static boolean checkFirstAreaHit(double x, double y, double r) {
-        return x <= 0 && y <= 0 && y + 2*x <= -r;  // y >= -2x - r
+        return x <= 0 && y <= 0 && y + 2*x >= -r;  // y >= -2x - r
     }
 
     public static boolean checkSecondAreaHit(double x, double y, double r) {

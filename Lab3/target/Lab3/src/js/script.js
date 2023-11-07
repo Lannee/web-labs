@@ -4,35 +4,6 @@ function setInputLabelValue(value) {
     drawAllPoints();
 }
 
-function sendAsyncRequest(data, onSuccess) {
-    $.ajax({
-        type: "POST",
-        url: new URL("./control", window.location.href),
-        data: {"clear" : true},
-        success: onSuccess
-    });
-}
-
-function sendRequest(data) {
-    const searchParams = new URLSearchParams(data);
-    window.location = "control?" + searchParams.toString();
-}
-
-function validateAndSendRequest(x, y, r) {
-    hideElement(tip);
-
-    if(!validateX(x)) {setTip("Invalid value for X"); return}
-    if(!validateY(y)) {setTip("Invalid value for Y"); return}
-    if(!validateR(r)) {setTip("Invalid value for R"); return}
-
-    sendRequest({"x" : x, "y" : y, "r" : r});
-}
-
-function clearSession() {
-    sendAsyncRequest({"clear" : true});
-    location.reload();
-}
-
 function validateAll(x, y, r) {
     return validateX(x) && validateY(y) && validateR(r);
 }
@@ -76,22 +47,51 @@ function hideElement(element) {
 
 function getR() {
     return document.getElementById('input_label').innerText;
-    // return r_label.innerText;
 }
 
 // const xInput = document.getElementById("input_form\:x");
-const yInput = document.getElementById("input_form\:y");
+// const yInput = document.getElementById("input_form\:y");
 // const rInput = document.getElementById(rInputID);
+// let count = 0
+
+// document.getElementById('input_form\:submit_button').addEventListener('mousedown', (event) => {
+//     count++;
+//     console.log(count);
+//
+//     console.log("fuck you");
+//
+//     hideElement(tip);
+//
+//     // if(!validateX(parseFloat(x_select.value).toFixed(4))) {setTip("Invalid value for X"); return}
+//     if(!validateY(document.getElementById("input_form\:y").value)) {setTip("Invalid value for Y");return}
+//     // if(!validateR(parseFloat(r_label.innerText).toFixed(4))) {setTip("Invalid value for R"); return}
+// });
+//
+// document.getElementById('input_form\:submit_button').addEventListener('mousedown', (event) => {
+//     location.reload();
+// });
 
 
-document.getElementById('input_form\:submit_button').addEventListener('click', (event) => {
-    // event.preventDefault();
-    console.log("click")
+// <p:inputText id="y" className="concave" required="true" value="${yBean.y}" validator="${yBean.validateY}" size="5"
+//              a:placeholder="-3 ... 5">
+//     <f:validateLongRange minimum="-3" maximum="5"/>
+//     <f:ajax execute="y-select" render="y"/>
+// </p:inputText>
 
-    hideElement(tip);
-    console.log(yInput.toString() + yInput.value)
+// setTimeout(() => location.reload(), 200)
 
-    // if(!validateX(parseFloat(x_select.value).toFixed(4))) {setTip("Invalid value for X"); return}
-    if(!validateY(parseFloat(yInput.value).toFixed(4))) {setTip("Invalid value for Y"); return}
-    // if(!validateR(parseFloat(r_label.innerText).toFixed(4))) {setTip("Invalid value for R"); return}
-});
+// <h:selectBooleanCheckbox id="r_b1" value="${rBean.b1}" validator="${rBean.validateR}" onclick="setInputLabelValue(1)">
+//     <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+// </h:selectBooleanCheckbox> 1
+// <h:selectBooleanCheckbox id="r_b15" value="${rBean.b15}" validator="${rBean.validateR}" onclick="setInputLabelValue(1.5)">
+//     <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+//     </h:selectBooleanCheckbox> 1.5
+// <h:selectBooleanCheckbox id="r_b2" value="${rBean.b2}" validator="${rBean.validateR}" onclick="setInputLabelValue(2)">
+//     <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+// </h:selectBooleanCheckbox> 2
+// <h:selectBooleanCheckbox id="r_b25" value="${rBean.b25}" validator="${rBean.validateR}" onclick="setInputLabelValue(2.5)">
+//     <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+//     </h:selectBooleanCheckbox> 2.5
+// <h:selectBooleanCheckbox id="r_b3" value="${rBean.b3}" validator="${rBean.validateR}" onclick="setInputLabelValue(3)">
+//     <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+// </h:selectBooleanCheckbox> 3
