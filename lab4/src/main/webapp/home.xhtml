@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Lab3 Bulko Egor</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital@0;1&amp;family=Montserrat:wght@600&amp;display=swap" rel="stylesheet"/>
+
+        <meta http-equiv="Content-Type" content="text/html" />
+        <link rel="stylesheet" href="src/css/style.css"/>
+    </h:head>
+    <h:body>
+        <ui:include src="header.xhtml" />
+
+        <div class="row convex" id="indexPageDiv">
+            <h:form id="indexPageForm">
+                <h:commandButton id="indexPageLink" action="index" value="Go to the Index Page"/>
+            </h:form>
+        </div>
+
+        <div class="content convex row">
+            <div class="areas">
+                <canvas id="areas_canvas" height="300" width="300"></canvas>
+            </div>
+            <h:form id="canvas_form">
+                <h:inputHidden id="canvas_x" value="#{canvasBean.x}" />
+                <h:inputHidden id="canvas_y" value="#{canvasBean.y}" />
+                <p:remoteCommand name="canvas_shot" update="canvas_x canvas_y result_table input_form"
+                                 action="#{userDataBean.newShot(canvasBean.x,
+                                        canvasBean.y, rBean.r)}"/>
+            </h:form>
+            <div id="form_div">
+                <h:form id="input_form">
+                    <div class="input convex" id="x_radio">
+                        <div class="input_text" style="margin-bottom: 10px;">Select X:</div>
+                        <h:selectOneRadio value = "#{xBean.x}">
+                            <f:selectItem id="x_m3" itemValue = "-3" itemLabel = "-3" />
+                            <f:selectItem id="x_m2" itemValue = "-2" itemLabel = "-2" />
+                            <f:selectItem id="x_m1" itemValue = "-1" itemLabel = "-1" />
+                            <f:selectItem id="x_0" itemValue = "0" itemLabel = "0" />
+                            <f:selectItem id="x_1" itemValue = "1" itemLabel = "1" />
+                            <f:selectItem id="x_2" itemValue = "2" itemLabel = "2" />
+                            <f:selectItem id="x_3" itemValue = "3" itemLabel = "3" />
+                            <f:selectItem id="x_4" itemValue = "4" itemLabel = "4" />
+                            <f:selectItem id="x_5" itemValue = "5" itemLabel = "5" />
+                        </h:selectOneRadio>
+                    </div>
+                    <div class="input convex row" style="display: flex; justify-content: flex-start">
+                        <div class="input_text" style="margin-right: 10px;">Enter Y:</div>
+
+                        <p:inputText id="y" class="concave" value="#{yBean.y}" required="true"
+                                     converterMessage="Invalid Y value" size="5" a:placeholder="-3 ... 5">
+                            <f:validateDoubleRange minimum="-3" maximum="5"/>
+                            <p:clientValidator event="change"/>
+                        </p:inputText>
+                    </div>
+                    <div class="input convex" style="display: block">
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="input_text">Choose R:</div>
+                            <label id="input_label" style="display: none">${rBean.r}</label>
+                        </div>
+                        <div class="buttons" id="r_select">
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b1" class="r_check" value="${rBean.b1}" onclick="setInputLabelValue(1)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>1</div>
+                            </div>
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b15" class="r_check" value="${rBean.b15}" onclick="setInputLabelValue(1.5)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>1.5</div>
+                            </div>
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b2" class="r_check" value="${rBean.b2}" onclick="setInputLabelValue(2)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>2</div>
+                            </div>
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b25" class="r_check" value="${rBean.b25}" onclick="setInputLabelValue(2.5)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>2.5</div>
+                            </div>
+                            <div>
+                                <h:selectBooleanCheckbox id="r_b3" value="${rBean.b3}" onclick="setInputLabelValue(3)">
+                                    <f:ajax render="r_b1 r_b15 r_b2 r_b25 r_b3 draw_script" />
+                                </h:selectBooleanCheckbox>
+                                <div>3</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="submit_row">
+                        <div style="width: fit-content" onclick="setTimeout(() => location.reload(), 200)">
+                            <h:commandButton class="convex" id="submit_button" value="Submit">
+                                <f:ajax execute="@form" listener="#{userDataBean.newShot(xBean.x,
+                                            yBean.y, rBean.r)}" render="result_table draw_script"/>
+                            </h:commandButton>
+                        </div>
+                    </div>
+                    <p:message for="y" autoUpdate="true"/>
+                </h:form>
+                <div style="display: none;" id="tip"></div>
+            </div>
+        </div>
+
+        <div class="convex" id="results">
+            <h:dataTable id="result_table" class="results" value="#{userDataBean.shots}" var="s" style="text-align: center;">
+                <h:column pt:style="width:10%">
+                    <f:facet name = "header">X</f:facet>
+                    #{s.x}
+                </h:column>
+                <h:column pt:style="width:10%">
+                    <f:facet name = "header">Y</f:facet>
+                    #{s.y}
+                </h:column>
+                <h:column pt:style="width:10%">
+                    <f:facet name = "header">R</f:facet>
+                    #{s.r}
+                </h:column>
+                <h:column pt:style="width:10%">
+                    <f:facet name = "header">HitFact</f:facet>
+                    #{s.hit ? "Hit" : "Miss"}
+                </h:column>
+                <h:column pt:style="width:33%">
+                    <f:facet name = "header">Executed at</f:facet>
+                    <h:outputText converter="timeConverter" value="#{s.currTime}" />
+                </h:column>
+                <h:column pt:style="width:27%">
+                    <f:facet name = "header">Execution time</f:facet>
+                    #{s.execTime}
+                </h:column>
+            </h:dataTable>
+            <div onclick="setTimeout(() => location.reload(), 200)">
+                <h:commandButton id="clear" class="convex" value="Clear">
+                    <f:ajax execute="@form" listener="#{userDataBean.clearShots()}" update="draw_script" render="result_table draw_script"/>
+                </h:commandButton>
+            </div>
+        </div>
+        <script src="src/js/jquery.js"></script>
+        <script src="src/js/script.js"></script>
+        <script src="src/js/points.js"></script>
+        <script id="draw_script">
+            function drawAllPoints() {
+            <ui:repeat id="draw_functions" value="#{userDataBean.shots}" var="s">drawPointXYCoords(#{s.x}, #{s.y}, ${s.r}, ${s.hit});
+            </ui:repeat>
+            }
+        </script>
+        <script>
+            drawAllPoints();
+        </script>
+    </h:body>
+</html>

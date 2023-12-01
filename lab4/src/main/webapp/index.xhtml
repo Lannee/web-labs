@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Lab3 Bulko Egor</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital@0;1&amp;family=Montserrat:wght@600&amp;display=swap" rel="stylesheet"/>
+
+        <h:outputScript library="primefaces" name="jquery/jquery.js" />
+        <script type="text/javascript" src="https://cdn.rawgit.com/JDMcKinstry/JavaScriptDateFormat/master/Date.format.min.js">
+        </script>
+        <link rel="stylesheet" href="src/css/style.css"/>
+        <link rel="stylesheet" href="src/css/clock.css"/>
+        <link rel="stylesheet" href="src/css/timer.css"/>
+    </h:head>
+
+    <h:body>
+        <ui:include src="header.xhtml" />
+
+        <ui:include src="time.xhtml"/>
+
+        <div class="row convex" id="homePageDiv">
+            <h:form id="homePageForm">
+                <h:commandButton id="homePageLink" action="home" value="Go to the home Page"/>
+            </h:form>
+        </div>
+    </h:body>
+
+</html>
