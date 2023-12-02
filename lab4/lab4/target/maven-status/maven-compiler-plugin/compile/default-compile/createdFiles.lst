@@ -1,0 +1,5 @@
+ru\lannee\web\controllers\LoginController.class
+ru\lannee\web\db\Shot.class
+ru\lannee\web\Web4Application.class
+ru\lannee\web\controllers\AreaCheckController.class
+ru\lannee\web\db\ShotRepository.class
