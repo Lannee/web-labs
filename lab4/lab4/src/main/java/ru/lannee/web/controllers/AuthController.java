@@ -3,7 +3,9 @@ package ru.lannee.web.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import ru.lannee.web.data.UserCredentials;
 import ru.lannee.web.data.UserForm;
 import ru.lannee.web.managers.auth.AuthValidationResult;
 import ru.lannee.web.managers.auth.UserValidator;
@@ -23,16 +25,33 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserForm user) {
-        AuthValidationResult validationResult = UserValidator.validateUser(user);
+        AuthValidationResult validationResult = UserValidator.validateUser(user.getLogin(), user.getPassword(), user.getEmail());
 
         if(validationResult != AuthValidationResult.OK)
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(validationResult.getErrorMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationResult.getErrorMessage());
 
         validationResult = authService.createUser(user);
         if(validationResult != AuthValidationResult.OK){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(validationResult.getErrorMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationResult.getErrorMessage());
         }
         return ResponseEntity.ok().body("Success");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserForm user) {
+        System.out.println(user);
+        AuthValidationResult validationResult = UserValidator.validateUser(user.getLogin(), user.getPassword());
+
+        if(validationResult != AuthValidationResult.OK)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationResult.getErrorMessage());
+
+        try {
+            UserCredentials userCredentials = authService.loginUser(user);
+            System.out.println(userCredentials);
+            return ResponseEntity.ok().body(userCredentials);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString());
+        }
     }
 
 //    @PostMapping("/register")

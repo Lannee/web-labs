@@ -16,12 +16,12 @@ import ru.lannee.web.repository.UserRepository;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    private final static BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
 
     @Override
@@ -33,13 +33,13 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean saveUser(User user) {
-        User existingUser = userRepository.findUserByLogin(user.getLogin());
-
-        if(existingUser != null) return false;
-
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
-    }
+//    public boolean saveUser(User user) {
+//        User existingUser = userRepository.findUserByLogin(user.getLogin());
+//
+//        if(existingUser != null) return false;
+//
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        userRepository.save(user);
+//        return true;
+//    }
 }

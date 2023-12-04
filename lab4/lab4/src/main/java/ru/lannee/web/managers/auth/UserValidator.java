@@ -4,12 +4,20 @@ import ru.lannee.web.data.UserForm;
 
 public class UserValidator {
 
-    public static AuthValidationResult validateUser(UserForm user) {
-        if (!isValidLogin(user.getLogin())) return AuthValidationResult.INVALID_LOGIN;
+    public static AuthValidationResult validateUser(String login, String password, String email) {
+        if (!isValidLogin(login)) return AuthValidationResult.INVALID_LOGIN;
 
-        if (!isValidPassword(user.getPassword())) return AuthValidationResult.INVALID_PASSWORD;
+        if (!isValidPassword(password)) return AuthValidationResult.INVALID_PASSWORD;
 
-        if (!isValidEmail(user.getEmail())) return AuthValidationResult.INVALID_EMAIL;
+        if (!isValidEmail(email)) return AuthValidationResult.INVALID_EMAIL;
+
+        return AuthValidationResult.OK;
+    }
+
+    public static AuthValidationResult validateUser(String login, String password) {
+        if (!isValidLogin(login)) return AuthValidationResult.INVALID_LOGIN;
+
+        if (!isValidPassword(password)) return AuthValidationResult.INVALID_PASSWORD;
 
         return AuthValidationResult.OK;
     }
