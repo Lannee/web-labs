@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.lannee.web.data.UserForm;
 
 import java.util.Collection;
 
@@ -30,6 +31,12 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     private String password;
+
+    public User(UserForm userForm) {
+        this.login = userForm.getLogin();
+        this.email = userForm.getEmail();
+        this.password = userForm.getPassword();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
