@@ -1,15 +1,17 @@
 <template>
     <Header />
-    HUI
+    <ResultTable />
 </template>
 
 <script>
+import ResultTable from '@/components/ResultTable.vue'
 import Header from '../components/Header.vue'
 
 export default {
   name: "HomeComponent",
   components: {
-    Header
+    Header,
+    ResultTable
   }
 }
 </script>
