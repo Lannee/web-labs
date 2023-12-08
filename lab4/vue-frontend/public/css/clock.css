@@ -40,27 +40,27 @@
     position: absolute;
 }
 
-.clock .hour, .hr{
+.clock .hour, #hr{
     width: 11vw;
     height: 11vw;
 }
-.clock .min, .mn{
+.clock .min, #mn{
     width: 13vw;
     height: 13vw;
 }
-.clock .sec, .sc{
+.clock .sec, #sc{
     width: 16vw;
     height: 16vw;
 }
 
-.hr, .mn, .sc{
+#hr, #mn, #sc{
     display: flex;
     justify-content: center;
     position: absolute;
     border-radius: 50%;
 }
 
-.hr:before{
+#hr:before{
     content: '';
     position: absolute;
     width: 0.5vw;
@@ -69,7 +69,7 @@
     z-index: 10;
     border-radius: 6px 6px 0 0;
 }
-.mn:before{
+#mn:before{
     content: '';
     position: absolute;
     width: 0.3vw;
@@ -78,7 +78,7 @@
     z-index: 11;
     border-radius: 6px 6px 0 0;
 }
-.sc:before{
+#sc:before{
     content: '';
     position: absolute;
     width: 0.2vw;

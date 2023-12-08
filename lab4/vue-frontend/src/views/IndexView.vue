@@ -1,14 +1,16 @@
 <template>
   <Header />
+  <Clock />
 </template>
 
 <script>
 import Header from '../components/Header.vue'
+import Clock from '../components/Clock.vue'
 
 export default {
   name: "IndexComponent",
   components: {
-    Header
+    Header, Clock
   }
 }
 </script>
