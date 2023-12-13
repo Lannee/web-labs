@@ -1,12 +1,15 @@
 <template>
     <div class="convex" id="header">
+      <div id="headerModalButton" class="convex" @click="this.showModal = !this.showModal">info</div>
       <div>{{ name }}</div>
       <div>{{ group }}</div>
       <div>Variant: {{ variant }}</div>
     </div>
+      <modal-window v-if="showModal" @close="showModal = false"></modal-window>
 </template>
 
 <script>
+import ModalWindow from './modal/ModalWindow.vue'
 
 export default {
     name: "HeaderComponent",
@@ -14,30 +17,31 @@ export default {
         return {
             name: "Bulko Egor",
             group: "P3206",
-            variant: "1905"
+            variant: "1905",
+
+            showModal: false
         }
+    },
+    components: {
+        ModalWindow
     }
 }
 </script>
 
-<style scoped>
-/* @media screen and (min-width: 1179) {
-    #header {
-        color: var(--shade-base);
-        display: flex;
-        justify-content: space-around;
-        width: 45%;
-        color: red;
-    }
+<style>
+#header {
+    color: var(--shade-base);
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
 }
 
-@media screen and (max-width: 1179) {
-    #header {
-        color: var(--shade-base);
-        display: flex;
-        justify-content: space-around;
-        width: 45%;
-        color: red;
-    }
-} */
+#header * {
+    padding: 10px;
+    margin: 0 10px; 
+}
+
+#header #headerModalButton {
+    border-radius: 12px
+}
 </style>
