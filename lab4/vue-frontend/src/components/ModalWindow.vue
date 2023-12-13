@@ -132,7 +132,7 @@ button:focus {
     position: absolute;
     top: 30px;
     right: 30px;
-    background-image: url('../../static/images/close.png');
+    background-image: url('../static/images/close.png');
     filter: invert();
     background-size: cover;
     cursor: pointer;
