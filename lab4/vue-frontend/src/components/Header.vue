@@ -42,6 +42,7 @@ export default {
 }
 
 #header #headerModalButton {
-    border-radius: 12px
+    border-radius: 12px;
+    cursor: pointer;
 }
 </style>

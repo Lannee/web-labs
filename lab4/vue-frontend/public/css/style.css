@@ -82,23 +82,9 @@ body {
     border: none;
     display:inline-block;
 }
-#input_form\:submit_button {
-    border: none;
-    border-radius: 10px;
-    padding: 14px 20px;
-    transition: .2s;
-    transform: scale(1);
-
-    margin-bottom: 10px;
-}
 
 #input_form\:y {
     background-color: var(--base);
-}
-
-#r_select {
-    display: flex;
-    justify-content: space-around;
 }
 
 #x_radio tr {
@@ -131,18 +117,15 @@ input::placeholder {
     opacity: 0.5;
 }
 
-#app > div {
+#app > #header,
+#app > .content,
+#app > #results {
     border-radius: 22px;
     padding: 14px;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
     width: 70%;
-}
-
-#input_form\:y_coordinate {
-    width: 50%;
-    margin-left: 15px;
 }
 
 
@@ -160,22 +143,7 @@ input::placeholder {
                 inset 5px 5px 9px rgba(94, 104, 121, 0.3);
 } */
 
-.content {
-    width: 60%;
-    justify-content: space-around;
-}
-
-.input_button {
-    border: none;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    margin-right: 8px;
-    transition: .2s;
-    transform: scale(1);
-}
-
-button:active, #input_form\:submit_button:active, #clear:active {
+button:active, #clear:active {
     transform: scale(0.92);
 }
 
@@ -262,17 +230,6 @@ input:focus, select:focus {
 
 #results_body {
     text-align: center;
-}
-
-#areas_canvas {
-    background-image: url("../images/areas.png");
-}
-
-.areas{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
 }
 
 .resultTitle{

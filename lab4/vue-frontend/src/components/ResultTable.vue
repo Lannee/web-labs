@@ -2,12 +2,12 @@
   <div class="convex" id="results">
     <table id="result_table" class="results" @click="add_tipical">
         <thead>
-            <th>X</th>
-            <th>Y</th>
-            <th>R</th>
-            <th>HitFact</th>
-            <th>Executed at</th>
-            <th>Execution time</th>
+            <th style="width:10%">X</th>
+            <th style="width:10%">Y</th>
+            <th style="width:10%">R</th>
+            <th style="width:10%">HitFact</th>
+            <th style="width:33%">Executed at</th>
+            <th style="width:27%">Execution time</th>
         </thead> 
         <tbody>     
             <tr v-for="result in results" :key="result.id">
@@ -48,5 +48,7 @@ export default {
 </script>
 
 <style>
-
+td {
+    text-align: center;
+}
 </style>

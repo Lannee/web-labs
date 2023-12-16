@@ -1,10 +1,4 @@
 <template>
-    <!-- <div id="modalWindowBack" :class="{hiddenModalBack: isHidenModal}"> -->
-    <!-- <div id="modalWindowBack">
-        <div class="closeButton" @click="$emit('close')"></div>
-        <LoginForm />
-        <RegisterForm />
-    </div> -->
     <div id="modalWindowBack">
         <div class="modalWindow convex" id="loggedUserInfo">
         </div>    
@@ -76,6 +70,22 @@ export default {
 </script>
 
 <style scoped>
+
+a {
+    cursor: pointer;
+}
+
+.modalWindow::before {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    margin: auto;
+
+    z-index: 101;
+    background-color: #868E9C;
+}
 
 #registerLink {
     margin-top: 10px;
