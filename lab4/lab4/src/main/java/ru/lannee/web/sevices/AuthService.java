@@ -26,7 +26,7 @@ public class AuthService {
         if (!passwordEncoder.matches(req.getPassword(), user.getPassword()))
             throw new WrongPasswordException(req.getLogin());
 
-        return new UserCredentials(user.getLogin(), jwtUtils.generateJwtToken(user.getUsername()));
+        return new UserCredentials(user.getLogin(), jwtUtils.generateJwtToken(user.getLogin()));
     }
 
     public long getUserIdFromToken(String token) throws DoesNotExistException {

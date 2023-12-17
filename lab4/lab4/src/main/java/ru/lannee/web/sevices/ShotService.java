@@ -7,13 +7,17 @@ import ru.lannee.web.data.Shot;
 import ru.lannee.web.data.ShotResult;
 import ru.lannee.web.entity.Result;
 import ru.lannee.web.entity.User;
+import ru.lannee.web.exceptions.InvalidJWTTokenException;
 import ru.lannee.web.managers.HitManager;
 import ru.lannee.web.repository.ShotRepository;
 import ru.lannee.web.repository.UserRepository;
 import ru.lannee.web.security.jwt.JwtUtils;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,12 +33,26 @@ public class ShotService {
     }
 
     @Transactional
-    public ShotResult save(Shot shot) {
+    public ShotResult save(Shot shot) throws InvalidJWTTokenException {
+        long start = System.nanoTime();
         boolean isHit = HitManager.checkHit(shot.getX(), shot.getY(), shot.getR());
         ShotResult hitResult = new ShotResult(shot, isHit);
 
-        Result result = new Result(shot.getX(),shot.getY(),shot.getR(), isHit, userRepository.getUserByLogin(jwtUtils.getUserNameFromJwtToken(shot.getToken())).get());
+        String login = jwtUtils.getUserNameFromJwtToken(shot.getToken());
+        System.out.println("login: " + login);
+        Optional<User> user = userRepository.getUserByLogin(login);
+
+        if(user.isEmpty()) throw new InvalidJWTTokenException();
+
+        Result result = new Result(shot.getX(),
+                shot.getY(),
+                shot.getR(),
+                isHit,
+                LocalDateTime.now(),
+                System.nanoTime() - start,
+                user.get());
         shotRepository.save(result);
+
         return hitResult;
     }
 
@@ -45,9 +63,12 @@ public class ShotService {
     }
 
     @Transactional
-    public List<ShotResult> findAllByOwnerId(Long id) {
-        return shotRepository.findByUserId(id).stream()
-                .map(Result::toShotResult).collect(Collectors.toList());
+    public List<Result> findAllByUserLogin(String login) {
+        Optional<User> user = userRepository.getUserByLogin(login);
+        return user.map(
+                value -> shotRepository
+                        .findByUser_id(value.getId()))
+                .orElse(null);
     }
 
 

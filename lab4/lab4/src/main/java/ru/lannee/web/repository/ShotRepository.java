@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface ShotRepository extends JpaRepository<Result, Long> {
-    List<Result> findByUserId(Long id);
+    List<Result> findByUser_id(Long id);
 
 //    @Modifying
 //    @Query("DELETE FROM 'results' e WHERE e.user_id = :user_id")
