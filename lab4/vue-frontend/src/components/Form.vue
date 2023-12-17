@@ -200,7 +200,7 @@ export default {
         },
         sendShot() {
             if(this.validateForm()) {
-                shotService.shot(this.x_val, this.y_val, this.r_val)
+                shotService.shot(this.x_val, parseFloat(parseFloat(this.y_val).toFixed(4)), this.r_val)
             }    
         }
     },

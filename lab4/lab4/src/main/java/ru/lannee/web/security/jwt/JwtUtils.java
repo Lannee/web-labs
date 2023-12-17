@@ -17,7 +17,7 @@ public class JwtUtils {
     private static final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private static final long expirationMs = 3600000; // Время действия токена: 1 час
 
-    public static String generateJwtToken(String username) {
+    public String generateJwtToken(String username) {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + expirationMs);
 
@@ -57,5 +57,13 @@ public class JwtUtils {
 
     private Jws<Claims> getParsedToken(String authToken) {
         return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(authToken);
+    }
+
+    public Claims getClaims(String jwtToken) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(jwtToken)
+                .getBody();
     }
 }

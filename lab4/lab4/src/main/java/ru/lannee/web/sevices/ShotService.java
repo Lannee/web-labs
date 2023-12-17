@@ -33,8 +33,8 @@ public class ShotService {
         boolean isHit = HitManager.checkHit(shot.getX(), shot.getY(), shot.getR());
         ShotResult hitResult = new ShotResult(shot, isHit);
 
-//        Result result = new Result(shot.getX(),shot.getY(),shot.getR(), isHit, userRepository.getUserByLogin(jwtUtils.getUserNameFromJwtToken(shot.getToken())));
-//        shotRepository.save(result);
+        Result result = new Result(shot.getX(),shot.getY(),shot.getR(), isHit, userRepository.getUserByLogin(jwtUtils.getUserNameFromJwtToken(shot.getToken())).get());
+        shotRepository.save(result);
         return hitResult;
     }
 

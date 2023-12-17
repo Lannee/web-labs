@@ -36,19 +36,12 @@ public class AreaCheckController {
         this.userRepository = userRepository;
     }
 
-//    private final ShotRepository shotRepository;
-//
-//    @Autowired
-//    public AreaCheckController(ShotRepository shotRepository) {
-//        this.shotRepository = shotRepository;
-//    }
-
     @PostMapping("")
     public ResponseEntity<?> checkArea(@RequestBody Shot shot) {
         try {
             System.out.println(shot.getX()+" "+shot.getY()+" "+shot.getR()+" \ntoken is: "+jwtUtils.validateJwtToken(shot.getToken()));
-            ShotResult hitResult = shotService.save(shot);
             BoundManager.checkBounds(shot);
+            ShotResult hitResult = shotService.save(shot);
             return new ResponseEntity<>(hitResult, HttpStatus.CREATED);
         } catch (OutOfCoordinatesBoundsException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
