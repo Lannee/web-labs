@@ -1,6 +1,6 @@
 <template>
   <div class="content convex row">
-        <CanvasComponent />
+        <CanvasComponent :radius="r_val"/>
         <div id="form_div">
             <div id="input_form">
                 <div class="input convex" id="x_checkbox"  style="display: block">
@@ -80,7 +80,7 @@
                 <div id="submit_row">
                     <div style="width: fit-content">
                         <button class="convex" id="submit_button" @click="sendShot">Submit</button>
-                        <div style="display: none;" id="tip"></div>
+                        <div v-show="showTip" id="tip">{{ tipMessage }}</div>
                     </div>
                 </div>
             </div>
@@ -118,7 +118,10 @@ export default {
 
             x_val: 0,
             y_val: undefined,
-            r_val: 1
+            r_val: 1,
+
+            showTip: false,
+            tipMessage: ''
         }
     },
     methods: {
@@ -136,7 +139,6 @@ export default {
                     case 7: this.x_2 = true; this.x_val = 2; break;
                     case 8: this.x_3 = true; this.x_val = 3; break;
                 }
-                console.log("x" + variable)
             }
         },
         updateRCheckboxes(variable, value) {
@@ -149,11 +151,57 @@ export default {
                     case 3: this.r_4 = true; this.r_val = 4; break;
                     case 4: this.r_5 = true; this.r_val = 5; break;
                 }
-                console.log("r" + variable)
             }
         },
+        isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        },
+        validateX() {
+            if(!this.isNumeric(this.x_val) && this.x_val != -5 && 
+                this.x_val != -4 && this.x_val != -3 && 
+                this.x_val != -2 && this.x_val != -1 && 
+                this.x_val != 0 && this.x_val != 1 && 
+                this.x_val != 2 && this.x_val != 3) {
+
+                this.doShowTip("Invalid value for X")
+                return false
+            }
+            this.hideTip()
+            return true;
+        },
+        validateY() {
+            if(!this.isNumeric(this.y_val) || this.y_val < -3 || this.y_val > 3) {
+                this.doShowTip("Invalid value for Y")
+                return false
+            }
+            this.hideTip()
+            return true
+        },
+        validateR() {
+            if(!this.isNumeric(this.r_val) && this.r_val != 1 && 
+                this.r_val != 2 && this.r_val != 3 && 
+                this.r_val != 4 && this.r_val != 5) {
+
+                this.doShowTip("Invalid value for R")
+                return false
+            }
+            this.hideTip()
+            return true
+        },
+        validateForm() {
+            return this.validateX() && this.validateY() && this.validateR()
+        },
+        doShowTip(message) {
+            this.showTip = true
+            this.tipMessage = message
+        },
+        hideTip() {
+            this.showTip = false
+        },
         sendShot() {
-            shotService.shot(this.x_val, this.y_val, this.r_val)
+            if(this.validateForm()) {
+                shotService.shot(this.x_val, this.y_val, this.r_val)
+            }    
         }
     },
     watch: {
@@ -172,6 +220,10 @@ export default {
         r_3: function(val) {this.updateRCheckboxes(2, val)},
         r_4: function(val) {this.updateRCheckboxes(3, val)},
         r_5: function(val) {this.updateRCheckboxes(4, val)},
+
+        x_val: function() {this.validateX()},
+        y_val: function() {this.validateY()},
+        r_val: function() {this.validateR()}
     }
 }
 </script>

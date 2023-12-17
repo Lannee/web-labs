@@ -6,8 +6,8 @@
 
 <script>
 import ResultTable from '@/components/ResultTable.vue'
-import Header from '../components/Header.vue'
-import MainForm from '../components/Form.vue'
+import Header from '@/components/Header.vue'
+import MainForm from '@/components/Form.vue'
 
 export default {
   name: "HomeComponent",
