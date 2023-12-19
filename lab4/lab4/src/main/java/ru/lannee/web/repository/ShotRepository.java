@@ -18,4 +18,5 @@ public interface ShotRepository extends JpaRepository<Result, Long> {
 //    void deleteByUserId(@Param("user_id") Long user_id);
 
     void deleteByUser_id(Long user_id);
+
 }

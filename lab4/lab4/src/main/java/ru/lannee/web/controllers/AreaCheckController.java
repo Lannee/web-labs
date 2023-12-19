@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.lannee.web.data.Shot;
@@ -22,23 +23,22 @@ import ru.lannee.web.security.jwt.JwtUtils;
 import ru.lannee.web.sevices.ShotService;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/shots")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 public class AreaCheckController {
 
     private final ShotService shotService;
     private final JwtUtils jwtUtils;
-//    private final AuthTokenFilter authTokenFilter;
     private final UserRepository userRepository;
 
     @Autowired
     public AreaCheckController(ShotService shotService, JwtUtils jwtUtils, UserRepository userRepository) {
         this.shotService = shotService;
         this.jwtUtils = jwtUtils;
-//        this.authTokenFilter = authTokenFilter;
         this.userRepository = userRepository;
     }
 
@@ -47,11 +47,10 @@ public class AreaCheckController {
         try {
             if(jwtUtils.validateJwtToken(shot.getToken())) {
                 BoundManager.checkBounds(shot);
-                ShotResult hitResult = shotService.save(shot);
-                return new ResponseEntity<>(hitResult, HttpStatus.CREATED);
+                Result result = shotService.save(shot);
+                return new ResponseEntity<>(result, HttpStatus.CREATED);
             }
             return ResponseEntity.badRequest().body("Invalid token!");
-//            System.out.println(shot.getX()+" "+shot.getY()+" "+shot.getR()+" \ntoken is: "+jwtUtils.validateJwtToken(shot.getToken()));
         } catch (OutOfCoordinatesBoundsException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (InvalidJWTTokenException e) {
@@ -62,16 +61,28 @@ public class AreaCheckController {
     @PostMapping ("all")
     public ResponseEntity<?> allShots(@RequestBody Token token) {
         String login = jwtUtils.getUserNameFromJwtToken(token.getToken());
-        System.out.println("login: " + login);
+
         if(login != null) {
             List<Result> results = shotService.findAllByUserLogin(login);
             System.out.println("results: " + results);
             if(results != null) {
-//                Gson gson = new GsonBuilder()
-//                        .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
-//                        .create();
+                return ResponseEntity.ok().body(results);
+            }
+        }
+        return ResponseEntity.badRequest().body("Invalid token");
+    }
 
-                return ResponseEntity.ok().body(results.toString());
+    @PostMapping(path = "/clear")
+    public ResponseEntity<?> deleteAllPoints(@RequestBody Token token) {
+        String login = jwtUtils.getUserNameFromJwtToken(token.getToken());
+
+        if(login != null) {
+            if(shotService.clear(login)) {
+                return ResponseEntity.ok().body("Clear successful");
+            }
+            List<Result> results = shotService.findAllByUserLogin(login);
+            if(results != null) {
+                return ResponseEntity.ok().body(results);
             }
         }
         return ResponseEntity.badRequest().body("Invalid token");

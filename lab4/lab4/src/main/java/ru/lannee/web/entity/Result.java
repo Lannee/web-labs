@@ -2,6 +2,7 @@ package ru.lannee.web.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ru.lannee.web.data.ShotResult;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "results")
+@Data
 public class Result {
 
     @Id
@@ -65,16 +67,16 @@ public class Result {
         return new ShotResult(x, y, r, hit);
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "id: " + id + ", " +
-                "x: " + x + ", " +
-                "y: " + y + ", " +
-                "r: " + r + ", " +
-                "hit: " + hit + ", " +
-                "currTime: " + currTime + ", " +
-                "execTime: " + execTime +
-                "}";
-    }
+//    @Override
+//    public String toString() {
+//        return "{" +
+//                "id: " + id + ", " +
+//                "x: " + x + ", " +
+//                "y: " + y + ", " +
+//                "r: " + r + ", " +
+//                "hit: " + hit + ", " +
+//                "currTime: " + currTime + ", " +
+//                "execTime: " + execTime +
+//                "}";
+//    }
 }

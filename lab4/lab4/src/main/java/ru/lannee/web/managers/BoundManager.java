@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BoundManager {
 
-    private final static Double[] xValues = new Double[]{-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d};
+//    private final static Double[] xValues = new Double[]{-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d};
     private final static Double[] rValues = new Double[]{1d, 2d, 3d, 4d, 5d};
 
     public static void checkBounds(Shot shot) throws OutOfCoordinatesBoundsException {
@@ -17,7 +17,8 @@ public class BoundManager {
     }
 
     public static void checkX(double x) throws OutOfCoordinatesBoundsException {
-        if(!List.of(xValues).contains(x)) throw new OutOfCoordinatesBoundsException("x", x);
+//        if(!List.of(xValues).contains(x)) throw new OutOfCoordinatesBoundsException("x", x);
+        if(!(x >= -5 && x <= 3)) throw new OutOfCoordinatesBoundsException("x", x);
     }
 
     public static void checkY(double y) throws OutOfCoordinatesBoundsException {

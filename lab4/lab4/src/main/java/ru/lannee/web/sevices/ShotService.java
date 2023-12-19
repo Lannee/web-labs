@@ -33,10 +33,11 @@ public class ShotService {
     }
 
     @Transactional
-    public ShotResult save(Shot shot) throws InvalidJWTTokenException {
+    public Result save(Shot shot) throws InvalidJWTTokenException {
         long start = System.nanoTime();
+        System.out.println("shot : " + shot);
         boolean isHit = HitManager.checkHit(shot.getX(), shot.getY(), shot.getR());
-        ShotResult hitResult = new ShotResult(shot, isHit);
+        System.out.println("Hit fact: " + isHit);
 
         String login = jwtUtils.getUserNameFromJwtToken(shot.getToken());
         System.out.println("login: " + login);
@@ -53,7 +54,7 @@ public class ShotService {
                 user.get());
         shotRepository.save(result);
 
-        return hitResult;
+        return result;
     }
 
     @Transactional
@@ -77,6 +78,16 @@ public class ShotService {
     public void deleteAttempt(Long id) {
         System.out.println("Delete "+id);
         shotRepository.deleteByUser_id(id);
+    }
+
+    @Transactional
+    public boolean clear(String login) {
+        Optional<User> user = userRepository.getUserByLogin(login);
+        if(user.isPresent()) {
+            shotRepository.deleteByUser_id(user.get().getId());
+            return true;
+        }
+        return false;
     }
 
     public Result getAttemptById(Long id) {

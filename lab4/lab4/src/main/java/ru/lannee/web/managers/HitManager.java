@@ -15,7 +15,7 @@ public class HitManager {
     }
 
     public static boolean checkThirdAreaHit(double x, double y, double r) {
-        return x <= 0 && x >= r && y <= 0 && y >= r/2;
+        return x <= 0 && x >= -r && y <= 0 && y >= -r/2;
     }
 
 }
