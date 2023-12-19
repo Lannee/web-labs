@@ -126,31 +126,45 @@ input::placeholder {
     margin-top: 20px;
     margin-bottom: 20px;
     width: 70%;
-}
 
-
-/* .convex {
     background-color: var(--base);
 
     box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 
                 5px 5px 9px rgba(94, 104, 121, 0.3);
 }
 
-.concave {
-    background-color: var(--base);
+@media screen and (max-width: 840px) {
+    #app > #header {
+        border-radius: 0;
+        padding: 14px;
+        /* margin: auto; */
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
 
-    box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), 
-                inset 5px 5px 9px rgba(94, 104, 121, 0.3);
-} */
+        /* justify-content: space-around;
+        width:fit-content */
+    }
+
+    .execColomn {
+        display: none;
+    }
+
+    .timeColomn {
+        display: none;
+    }
+
+    .input input[type="text"] {
+        width: 200px;
+    }
+}
 
 button:active, #clear:active {
     transform: scale(0.92);
 }
 
-/*#header_div {*/
-/*    display: flex;*/
-/*    justify-content: space-around;*/
-/*}*/
 
 .text_convex {
     text-shadow: -3px -3px 3px rgba(255, 255, 255, 0.45), 
@@ -191,9 +205,11 @@ input:focus, select:focus {
      /*padding: auto; */
 
     border-radius: 10px;
-    padding: 14px 0px;
+    padding: 14px 10px;
 
-    min-width: 280px;
+    min-width: 250px;
+    max-width: 300px;
+    /* width: fit-content; */
     /*max-width: 270px;*/
 
     text-align: center;

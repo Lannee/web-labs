@@ -1,9 +1,15 @@
 <template>
     <div id="modalWindowBack">
-        <div class="modalWindow convex" id="loggedUserInfo">
+        <div class="modalWindow convex" id="loggedUserInfo" v-if="isLogged">
+            <div class="closeButton" @click="hideTip(); $emit('close')"></div>
+            <h1 class="subtitle">Your creditials</h1>
+            <div class="inputWrapper"> <div class="convex" id="shownName">Hi, {{ shown_name }}!</div></div>
+            <div class="button convex" style="margin-top: 20px;" @click="logout">
+                <p>Logout</p>
+            </div>
         </div>    
-        <div class="modalWindow convex" id="loginWindow" v-if="!showRegister">
-            <div class="closeButton" @click="$emit('close')"></div>
+        <div class="modalWindow convex" id="loginWindow" v-if="!isLogged && !showRegister">
+            <div class="closeButton" @click="hideTip(); $emit('close')"></div>
             <h1 class="subtitle">Sing In</h1>
             <p class="separated">Login</p>
             <div class="inputWrapper">
@@ -18,8 +24,8 @@
                 <p>Sing In</p>
             </div>
         </div>
-        <div class="modalWindow convex" id="signupWindow" v-if="showRegister">
-            <div class="closeButton" @click="$emit('close')"></div>
+        <div class="modalWindow convex" id="signupWindow" v-if="!isLogged && showRegister">
+            <div class="closeButton" @click="hideTip(); $emit('close')"></div>
             <h1 class="subtitle">Registration</h1>
             <p class="separated">Login</p>
             <div class="inputWrapper">
@@ -33,15 +39,19 @@
             <div class="inputWrapper">
                 <input type="password" class="concave" v-model="register_password">
             </div>
+            <div id="registerLink">Already have and account? <a @click="showRegister = false">sing in</a></div>
             <div class="button convex" style="margin-top: 20px;" @click="register">
                 <p>Register</p>
             </div>
         </div>
+        <div v-show="showTip" id="tip">{{ tipMessage }}</div>
     </div>
 </template>
 
 <script>
 import userAuthService from '@/service/UserAuthService'
+
+import router from '@/router'
 
 export default {
     data() {
@@ -54,16 +64,76 @@ export default {
             register_password: "",
 
             sing_in_user_name: "",
-            sing_in_password: ""
+            sing_in_password: "",
+
+            shown_name: "",
+
+            showTip: false,
+            tipMessage: ""
         }
     },
     methods: {
         register() {
+            this.checkToken()
             userAuthService.register_user(this.register_user_name, this.register_email, this.register_password)
+                .then((result) => {
+                    if(result == "Success") {
+                        this.sing_in_user_name = this.register_user_name
+                        this.sing_in_password = this.register_password
+                        this.sing_in()
+                    } else {
+                        this.doShowTip(result)
+                    }
+                })
         },
 
         sing_in() {
+            if(!this.isLogged) {
+                this.checkToken()
+                userAuthService.login_user(this.sing_in_user_name, this.sing_in_password).then((result) => {
+                    if(result == "Success") {
+                        this.isLogged = true
+                        this.shown_name = this.sing_in_user_name
+                    } else {
+                        this.doShowTip(result)
+                    }
+                })
+            }
+        },
 
+        logout() {
+            localStorage.removeItem("token");
+            this.isLogged = false
+            router.push('/')
+        },
+
+        doShowTip(message) {
+            this.showTip = true
+            this.tipMessage = message
+        },
+        hideTip() {
+            this.showTip = false
+        },
+
+        checkToken() {
+            if(!this.isLogged) {
+                const token = localStorage.getItem('token')
+
+                if(token != undefined) {
+                    userAuthService.getLoginByToken(token).then(res => {
+                        if(res.data) {
+                            console.log(res.data);
+                            this.shown_name = res.data
+                            this.isLogged = true
+                        } else {
+                            this.doShowTip(res)
+                            router.push('/')
+                        }
+                    })
+                } else {
+                    router.push('/')
+                }
+            }
         }
     }
 }
@@ -75,16 +145,10 @@ a {
     cursor: pointer;
 }
 
-.modalWindow::before {
-    position: relative;
-
-    width: 100%;
-    height: 100%;
-
-    margin: auto;
-
-    z-index: 101;
-    background-color: #868E9C;
+#shownName {
+    width: fit-content;
+    padding: 12px;
+    border-radius: 12px;
 }
 
 #registerLink {

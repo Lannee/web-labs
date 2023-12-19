@@ -2,6 +2,7 @@
     <Header />
     <MainForm />
     <ResultTable />
+    <div class="button convex" id="router_link"><router-link to="/">Go to Index</router-link></div>
 </template>
 
 <script>

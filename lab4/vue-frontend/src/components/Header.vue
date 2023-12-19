@@ -1,11 +1,12 @@
 <template>
-    <div class="convex" id="header">
-      <div id="headerModalButton" class="convex" @click="this.showModal = !this.showModal">info</div>
+    <!-- <div class="convex" id="header"> -->
+    <div id="header">
+      <div id="headerModalButton" class="convex" @click="this.showModal = !this.showModal; checkModal()">info</div>
       <div>{{ name }}</div>
       <div>{{ group }}</div>
       <div>Variant: {{ variant }}</div>
     </div>
-      <modal-window v-if="showModal" @close="showModal = false"></modal-window>
+      <modal-window v-show="showModal" @close="showModal = false"></modal-window>
 </template>
 
 <script>
@@ -24,6 +25,13 @@ export default {
     },
     components: {
         ModalWindow
+    },
+    methods: {
+        checkModal() {
+            if(this.showModal) {
+                ModalWindow.methods.checkToken()
+            }
+        }
     }
 }
 </script>

@@ -20,4 +20,15 @@ const router = createRouter({
   history: createWebHistory(),
   routes, 
 })
+
+router.beforeEach(async to => {
+  const publicPages = ['/'];
+  const authRequired = !publicPages.includes(to.path);
+  const token = localStorage.getItem('token')
+
+  if (authRequired && token == undefined) {
+      return '/';
+  }
+});
+
 export default router

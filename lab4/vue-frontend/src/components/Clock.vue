@@ -52,9 +52,12 @@ export default {
 }
 
 .clock {
-    position: absolute;
+    /* position: absolute;
     top: 5%;
-    right: 3%;
+    right: 3%; */
+    margin: auto;
+    margin-bottom: 20px;
+
     width: 20vw;
     height: 20vw;
     display: flex;
@@ -76,7 +79,7 @@ export default {
     height: 1vw;
     background-color: #ffffff;
     border-radius: 50%;
-    z-index: 999;
+    z-index: 50;
 }
 
 .clock .hour,

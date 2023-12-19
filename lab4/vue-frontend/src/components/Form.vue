@@ -1,6 +1,6 @@
 <template>
   <div class="content convex row">
-        <CanvasComponent :radius="r_val"/>
+        <CanvasComponent :radius="r_val" />
         <div id="form_div">
             <div id="input_form">
                 <div class="input convex" id="x_checkbox"  style="display: block">
@@ -92,6 +92,10 @@
 import CanvasComponent from './Canvas.vue'
 
 import shotService from '@/service/ShotService'
+import userAuthService from '@/service/UserAuthService'
+
+import * as formValid from '@/validators/formValidator'
+import router from '@/router'
 
 export default {
     name: "MainForm",
@@ -153,15 +157,8 @@ export default {
                 }
             }
         },
-        isNumeric(n) {
-            return !isNaN(parseFloat(n)) && isFinite(n);
-        },
         validateX() {
-            if(!this.isNumeric(this.x_val) && this.x_val != -5 && 
-                this.x_val != -4 && this.x_val != -3 && 
-                this.x_val != -2 && this.x_val != -1 && 
-                this.x_val != 0 && this.x_val != 1 && 
-                this.x_val != 2 && this.x_val != 3) {
+            if(formValid.isXNotvalid(this.x_val)) {
 
                 this.doShowTip("Invalid value for X")
                 return false
@@ -170,7 +167,7 @@ export default {
             return true;
         },
         validateY() {
-            if(!this.isNumeric(this.y_val) || this.y_val < -3 || this.y_val > 3) {
+            if(formValid.isYNotvalid(this.y_val)) {
                 this.doShowTip("Invalid value for Y")
                 return false
             }
@@ -178,9 +175,7 @@ export default {
             return true
         },
         validateR() {
-            if(!this.isNumeric(this.r_val) && this.r_val != 1 && 
-                this.r_val != 2 && this.r_val != 3 && 
-                this.r_val != 4 && this.r_val != 5) {
+            if(formValid.isRNotvalid(this.r_val)) {
 
                 this.doShowTip("Invalid value for R")
                 return false
@@ -189,6 +184,7 @@ export default {
             return true
         },
         validateForm() {
+            this.checkToken()
             return this.validateX() && this.validateY() && this.validateR()
         },
         doShowTip(message) {
@@ -199,9 +195,34 @@ export default {
             this.showTip = false
         },
         sendShot() {
+            this.checkToken()
             if(this.validateForm()) {
-                shotService.shot(this.x_val, parseFloat(parseFloat(this.y_val).toFixed(4)), this.r_val)
+                shotService.shot(this.x_val, parseFloat(parseFloat(this.y_val).toFixed(4)), this.r_val).then(res => {
+                    if(res == 'Invalid token!') {
+                        router.push('/')
+                    } else if(res.data == undefined) {
+                        this.doShowTip(res)
+                    }
+                })
             }    
+        },
+
+        checkToken() {
+            const token = localStorage.getItem('token')
+
+            if(token != undefined) {
+                userAuthService.getLoginByToken(token).then(res => {
+                    if(res.data) {
+                        this.shown_name = res.data
+                        this.isLogged = true
+                    } else {
+                        this.doShowTip(res)
+                        router.push('/')
+                    }
+                })
+            } else {
+                router.push('/')
+            }
         }
     },
     watch: {
@@ -230,10 +251,28 @@ export default {
 
 <style>
 
-.content {
-    width: 60%;
-    justify-content: space-around;
+@media screen and (max-width: 1050px) {
+    .content {
+        width: 60%;
+        display: inline;
+        justify-content: initial;
+        align-content: space-around;
+    }
+
+    #form_div {
+        width: 80%;
+        margin: auto;
+    }
 }
+
+@media screen and (min-width: 1050px) {
+    .content {
+        width: 60%;
+        justify-content: space-around;
+    }
+}
+
+
 
 #r_select, #x_select {
     display: flex;

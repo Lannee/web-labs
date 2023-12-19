@@ -1,6 +1,7 @@
 <template>
   <Header />
   <Clock />
+  <div class="button convex" id="router_link"><router-link to="/home">Go to Home</router-link></div>
 </template>
 
 <script>
@@ -17,6 +18,16 @@ export default {
 
 
 <style>
+#router_link {
+  width: 30%;
+  margin: auto;
+
+  padding: 12px;
+  border-radius: 12px;
+
+  text-align: center;
+}
+
 .convex {
     background-color: var(--base);
 
