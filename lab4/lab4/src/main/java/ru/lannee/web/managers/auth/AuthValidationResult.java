@@ -1,13 +1,13 @@
 package ru.lannee.web.managers.auth;
 
 public enum AuthValidationResult {
-    OK("Успешная аутентификация"),
-    INCORRECT_USERNAME_OR_PASSWORD("Некорректное имя или пароль"),
-    INVALID_PASSWORD("Пароль не менее 1 символа и включает только буквы и цифры"),
-    INVALID_LOGIN("Логин не менее 1 символа и включает только буквы и цифры"),
-    INVALID_EMAIL("Почта введена неверно"),
-    USER_ALREADY_EXIST("Пользователь уже существует, придумайте другое имя или измените почту"),
-    SESSION_EXPIRED("Действие токена истекло");
+    OK("Successful authentication"),
+    INCORRECT_USERNAME_OR_PASSWORD("Invalid login or password"),
+    INVALID_PASSWORD("Invalid password"),
+    INVALID_LOGIN("Invalid login"),
+    INVALID_EMAIL("Invalid email"),
+    USER_ALREADY_EXIST("User already exists"),
+    SESSION_EXPIRED("Token is expired");
 
     private final String errorMessage;
 

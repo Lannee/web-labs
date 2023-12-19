@@ -6,8 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import ru.lannee.web.data.Token;
 import ru.lannee.web.data.UserCredentials;
 import ru.lannee.web.data.UserForm;
+import ru.lannee.web.entity.Result;
+import ru.lannee.web.managers.BoundManager;
 import ru.lannee.web.managers.auth.AuthValidationResult;
 import ru.lannee.web.managers.auth.UserValidator;
 import ru.lannee.web.security.jwt.JwtUtils;
@@ -48,11 +51,22 @@ public class AuthController {
 
         try {
             UserCredentials userCredentials = authService.login(user);
-            System.out.println(userCredentials);
             return ResponseEntity.ok().body(userCredentials);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+
+    @PostMapping("/token_verify")
+    public ResponseEntity<?> verifyToken(@RequestBody Token token) {
+
+        if(jwtUtils.validateJwtToken(token.getToken())) {
+            String login = jwtUtils.getUserNameFromJwtToken(token.getToken());
+            if(login != null) {
+                return ResponseEntity.ok().body(login);
+            }
+        }
+        return ResponseEntity.badRequest().body("Invalid token");
     }
 
 //    @PostMapping("/register")
