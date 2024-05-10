@@ -3,19 +3,8 @@
          default="build">
     <property file="build.properties"/>
 
-    <taskdef resource="net/sf/antcontrib/antlib.xml">
-        <classpath>
-            <pathelement location="lib/ant-contrib-1.0b3.jar"/>
-        </classpath>
-    </taskdef>
-
-    <path id="classpath.source">
+    <path id="libs.path">
         <fileset dir="src/main/lib" includes="**/*.jar"/>
-    </path>
-
-    <path id="classpath.testSource">
-        <fileset dir="src/test/lib" includes="**/*.jar"/>
-        <pathelement location="${target.tests}"/>
     </path>
 
     <target name="init">
@@ -26,61 +15,47 @@
     <target name="compile" depends="init">
         <javac destdir="${target.classes}"
                srcdir="${main.source}">
-            <classpath refid="classpath.source"/>
+            <classpath refid="libs.path"/>
+        </javac>
+        <javac destdir="${target.classes}"
+               srcdir="${test.source}">
+            <classpath refid="libs.path"/>
         </javac>
         <echo message="Successfully compiled main sources"/>
     </target>
 
     <target name="build" depends="compile">
-        <jar destfile="${dist.jar}" basedir="${target.classes}" compress="false" index="true">
+        <jar destfile="${distribution.jar}" basedir="${target.classes}" compress="false" index="true">
             <manifest>
-                <attribute name="Main-Class" value="io.github.web32909231800.Main"/>
+                <attribute name="Main-Class" value="${main.class}"/>
             </manifest>
         </jar>
         <echo message="Successfully built"/>
     </target>
 
-    <target name="clean">
-        <trycatch>
-            <try>
-                <delete dir="${target}"/>
-            </try>
-            <catch>
-                <echo message="Couldn't clean automatically, please, check existence or access to ${target}"/>
-            </catch>
-        </trycatch>
+    <target name="clean" depends="cleanDist">
+        <delete dir="${target}"/>
         <echo message="Cleaned target"/>
     </target>
 
-    <target name="cleanDist" depends="clean">
-        <trycatch>
-            <try>
-                <delete dir="${dist.dir}"/>
-                <delete dir="${doc.dir}"/>
-            </try>
-            <catch>
-                <echo message="Couldn't clean dist automatically, please, check existence or access to ${dist.dir} and ${doc.dir}"/>
-            </catch>
-        </trycatch>
+    <target name="cleanDist">
+        <delete dir="${distribution.dir}"/>
+        <delete dir="${doc.dir}"/>
+        <delete dir="${test.result.dir}"/>
         <echo message="Cleaned distribution, docs"/>
     </target>
 
-
-    <target name="compileTest" depends="init">
-        <javac destdir="${target.tests}"
-               srcdir="${test.source}">
-            <classpath refid="classpath.testSource"/>
-        </javac>
-        <echo message="Successfully compiled tests"/>
-    </target>
-
-    <target name="test" depends="compileTest">
+    <target name="test" depends="build">
         <mkdir dir="${test.result.dir}"/>
         <junitlauncher printsummary="on" haltonfailure="yes">
-            <classpath refid="classpath.testSource"/>
+            <classpath refid="libs.path"/>
+            <classpath>
+                <pathelement location="${target.classes}"/>
+            </classpath>
             <testclasses outputdir="${test.result.dir}">
-                <fileset dir="${target.tests}" includes="**/*.class" />
-                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
+                <fileset dir="${target.classes}" includes="**/*Test.class"/>
+<!--                <listener type="legacy-brief" sendSysOut="true"/>-->
+<!--                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>-->
             </testclasses>
         </junitlauncher>
         <echo message="Test completed"/>
@@ -90,7 +65,7 @@
         <delete dir="${doc.dir}"/>
         <mkdir dir="${doc.dir}"/>
         <javadoc destdir="${doc.dir}">
-            <classpath refid="classpath.source"/>
+            <classpath refid="libs.path"/>
             <classpath refid="classpath.testSource"/>
             <fileset dir="${source.dir}" includes="**/*.java"/>
         </javadoc>
