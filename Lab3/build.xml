@@ -33,16 +33,12 @@
         <echo message="Successfully built"/>
     </target>
 
-    <target name="clean" depends="cleanDist">
+    <target name="clean">
         <delete dir="${target}"/>
-        <echo message="Cleaned target"/>
-    </target>
-
-    <target name="cleanDist">
         <delete dir="${distribution.dir}"/>
         <delete dir="${doc.dir}"/>
         <delete dir="${test.result.dir}"/>
-        <echo message="Cleaned distribution, docs"/>
+        <echo message="Cleaned target"/>
     </target>
 
     <target name="test" depends="build">
@@ -54,8 +50,8 @@
             </classpath>
             <testclasses outputdir="${test.result.dir}">
                 <fileset dir="${target.classes}" includes="**/*Test.class"/>
-<!--                <listener type="legacy-brief" sendSysOut="true"/>-->
-<!--                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>-->
+                <listener type="legacy-brief" sendSysOut="true"/>
+                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
             </testclasses>
         </junitlauncher>
         <echo message="Test completed"/>
@@ -72,7 +68,7 @@
     </target>
 
     <target name="doc" depends="javadoc">
-        <jar destfile="${dist.jar}" update="true">
+        <jar destfile="${distribution.jar}" update="true">
             <fileset dir="." includes="${doc.dir}/**"/>
         </jar>
 
